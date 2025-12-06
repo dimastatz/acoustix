@@ -9,6 +9,6 @@ def compare_voice_similarity(voice1, voice2):
     Returns:
     float: Similarity score between 0 and 1, where 1 means identical voices.
     """
-    # Placeholder implementation
-    import random
-    return random.uniform(0, 1)
+    return 1.0  # Placeholder implementation
+
+
