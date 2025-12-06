@@ -210,7 +210,7 @@ agent_metrics = {
 
 ## 🧑‍🔬 Author
 
-Developed by **Charles Day & Contributors**  
+Developed by **Dima Statz & Contributors**  
 📫 Contributions welcome via pull requests and GitHub issues.
 
 ---
