@@ -1,3 +1,6 @@
+""" main audio processing functions """
+
+
 def compare_voice_similarity(voice1, voice2):
     """
     Compares two voice samples and returns a similarity score.
@@ -9,6 +12,5 @@ def compare_voice_similarity(voice1, voice2):
     Returns:
     float: Similarity score between 0 and 1, where 1 means identical voices.
     """
+    print(voice1, voice2)
     return 1.0  # Placeholder implementation
-
-
