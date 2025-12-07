@@ -20,9 +20,8 @@ def test_get_audio_info():
     info = get_audio_info(test_file)
 
     # assertions
-    assert isinstance(info, dict)
-    assert "duration_sec" in info
-    assert "sample_rate" in info
-    assert "channels" in info
-    assert "frames" in info
-    assert "codec" in info
+    assert info["channels"] == 1
+    assert info["frames"] == 168000
+    assert info["duration_sec"] == 10.5
+    assert info["sample_rate"] == 16000
+    assert info["codec"] == "WAV/PCM_16"
