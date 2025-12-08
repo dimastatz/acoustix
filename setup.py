@@ -21,7 +21,7 @@ setup(
             Path(__file__).with_name("requirements.txt").open()
         )
     ],
-    description='WhisperFlow: Real-Time Transcription Powered by OpenAI Whisper',
+    description="Acoustix: extract rich analytical signals directly from audio files",
     long_description = long_description,
     long_description_content_type='text/markdown',
     include_package_data=True,
