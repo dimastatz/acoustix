@@ -42,7 +42,7 @@ elif [ $1 = "-docker" ]; then
     # build docker
     docker build --tag acoustix-image --build-arg CACHEBUST=$(date +%s) . --file Dockerfile.test
 elif [ $1 = "-deploy-package" ]; then
-    echo "Running WhisperFlow package setup"
+    echo "Running Acoustix package setup"
     pip install twine
     pip install wheel
     python setup.py sdist bdist_wheel
