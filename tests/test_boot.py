@@ -1,6 +1,6 @@
 """ tests for boot module """
 
-from acoustix import __version__
+from sonix import __version__
 
 
 def test_version():

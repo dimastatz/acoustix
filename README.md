@@ -1,23 +1,23 @@
 <div align="center">
-<h1 align="center"> Acoustix </h1> 
+<h1 align="center"> Sonix </h1> 
 <h3>Audio-Based Conversation Analysis</br></h3>
 <img src="https://img.shields.io/badge/Progress-1%25-red"> <img src="https://img.shields.io/badge/Feedback-Welcome-green">
 </br>
 </br>
 <kbd>
-<img src="/docs/imgs/acoustix.png" width="256px"> 
+<img src="/docs/imgs/sonix.png" width="256px"> 
 </kbd>
 </div>
 
-# 🎧 Acoustix — Audio-Based Conversation Analysis
+# 🎧 Sonix — Audio-Based Conversation Analysis
 
-**Acoustix** is a Python library designed to extract rich analytical signals directly from audio files — without relying on transcripts or text analysis. It focuses purely on acoustic and prosodic features to help researchers, developers, and data scientists understand conversational dynamics, emotional tone, and speaking patterns.
+**Sonix** is a Python library designed to extract rich analytical signals directly from audio files — without relying on transcripts or text analysis. It focuses purely on acoustic and prosodic features to help researchers, developers, and data scientists understand conversational dynamics, emotional tone, and speaking patterns.
 
 ---
 
 ## 🚀 Features
 
-Acoustix provides end-to-end analysis of raw audio conversations, including:
+Sonix provides end-to-end analysis of raw audio conversations, including:
 
 | Category | Description | Example Metrics |
 |-----------|--------------|-----------------|
@@ -47,7 +47,7 @@ Acoustix provides end-to-end analysis of raw audio conversations, including:
 ## 🛠️ Installation
 
 ```bash
-pip install Acoustix
+pip install Sonix
 ```
 
 ---
@@ -55,7 +55,7 @@ pip install Acoustix
 ## 🧪 Quick Start
 
 ```python
-from Acoustix import AudioAnalyzer
+from Sonix import AudioAnalyzer
 
 # Load and analyze an audio file
 analyzer = AudioAnalyzer("conversation.wav")
@@ -101,7 +101,7 @@ print(report.emotion.probabilities)
 ## ⚙️ Architecture Overview
 
 ```
-Acoustix/
+Sonix/
 │
 ├── core/
 │   ├── audio_loader.py         # Handles input normalization, channel merging
@@ -139,14 +139,14 @@ Acoustix/
 ## 🧠 Example Analysis Pipeline
 
 ```python
-from Acoustix.pipeline import AudioPipeline
+from Sonix.pipeline import AudioPipeline
 
 pipeline = AudioPipeline([
-    "vad",
-    "pitch",
-    "energy",
-    "emotion",
-    "turn_taking"
+  "vad",
+  "pitch",
+  "energy",
+  "emotion",
+  "turn_taking"
 ])
 
 results = pipeline.run("meeting.wav")
@@ -173,7 +173,7 @@ results.plot_waveform()
 ## 🧰 CLI Usage
 
 ```bash
-Acoustix analyze conversation.wav --plot
+Sonix analyze conversation.wav --plot
 ```
 
 Output includes JSON summary + waveform visualization.
@@ -185,14 +185,14 @@ Output includes JSON summary + waveform visualization.
 Integrate with your AI or analytics platform:
 
 ```python
-from Acoustix import AudioAnalyzer
+from Sonix import AudioAnalyzer
 
 analyzer = AudioAnalyzer("agent_call.wav")
 signals = analyzer.get_signals()
 agent_metrics = {
-    "engagement": signals["engagement_index"],
-    "emotion": signals["emotion"]["happy"],
-    "speech_rate": signals["speech_rate_wpm"]
+  "engagement": signals["engagement_index"],
+  "emotion": signals["emotion"]["happy"],
+  "speech_rate": signals["speech_rate_wpm"]
 }
 ```
 
@@ -217,4 +217,4 @@ Developed by **Dima Statz & Contributors**
 
 ## 📄 License
 
-MIT License © 2025 Acoustix Team
+MIT License © 2025 Sonix Team

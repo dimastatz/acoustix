@@ -20,5 +20,5 @@ COPY . .
 
 RUN rm -rf .venv & python3 -m venv .venv & source .venv/bin/activate \
     & pip install --upgrade pip & pip install -r ./requirements.txt \ 
-    & black acoustix tests & pylint --fail-under=9.9 acoustix tests \
-    & pytest --ignore=tests/benchmark --cov-fail-under=95 --cov acoustix -v tests
+    & black sonix tests & pylint --fail-under=9.9 sonix tests \
+    & pytest --ignore=tests/benchmark --cov-fail-under=95 --cov sonix -v tests

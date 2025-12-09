@@ -22,35 +22,35 @@ elif [ $1 = "-local" ]; then
     pip install --upgrade pip
     pip install -r ./requirements.txt
 
-    black acoustix tests
-    pylint --fail-under=9.9 acoustix tests
-    pytest --ignore=tests/benchmark --cov-fail-under=95 --cov acoustix -v tests
+    black sonix tests
+    pylint --fail-under=9.9 sonix tests
+    pytest --ignore=tests/benchmark --cov-fail-under=95 --cov sonix -v tests
 elif [ $1 = "-test" ]; then
     trap 'abort' 0
     set -e
     
     echo "Running format, linter and tests"
     source .venv/bin/activate
-    black acoustix tests
-    pylint --fail-under=9.9 acoustix tests
-    pytest --ignore=tests/benchmark --cov-fail-under=95 --cov --log-cli-level=INFO acoustix -v tests
+    black sonix tests
+    pylint --fail-under=9.9 sonix tests
+    pytest --ignore=tests/benchmark --cov-fail-under=95 --cov --log-cli-level=INFO sonix -v tests
 elif [ $1 = "-docker" ]; then
     echo "Building and running docker image"
-    docker stop acoustix-container
-    docker rm acoustix-container
-    docker rmi acoustix-image
+    docker stop sonix-container
+    docker rm sonix-container
+    docker rmi sonix-image
     # build docker
-    docker build --tag acoustix-image --build-arg CACHEBUST=$(date +%s) . --file Dockerfile.test
+    docker build --tag sonix-image --build-arg CACHEBUST=$(date +%s) . --file Dockerfile.test
 elif [ $1 = "-deploy-package" ]; then
-    echo "Running Acoustix package setup"
+    echo "Running Sonix package setup"
     pip install twine
     pip install wheel
     python setup.py sdist bdist_wheel
     rm -rf .venv_test
     python3 -m venv .venv_test
     source .venv_test/bin/activate
-    pip install ./dist/acoustix-0.2-py3-none-any.whl
-    pytest --ignore=tests/benchmark --cov-fail-under=95 --cov acoustix -v tests
+    pip install ./dist/sonix-0.2-py3-none-any.whl
+    pytest --ignore=tests/benchmark --cov-fail-under=95 --cov sonix -v tests
     # twine upload ./dist/*
 else
   echo "Wrong argument is provided. Usage:

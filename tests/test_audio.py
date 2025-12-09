@@ -1,7 +1,7 @@
 """ test audio module """
 from tests.utilities import get_resource_path
-from acoustix.core.audio import get_audio_info
-from acoustix.core.audio import compare_voice_similarity
+from sonix.core.audio import get_audio_info
+from sonix.core.audio import compare_voice_similarity
 
 
 def test_compare_voice_similarity():
