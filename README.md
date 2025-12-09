@@ -5,7 +5,7 @@
 </br>
 </br>
 <kbd>
-<img src="/docs/imgs/sonix.png" width="256px"> 
+<img src="https://github.com/dimastatz/sonix/blob/main/docs/imgs/sonix.png?raw=true" width="256px"> 
 </kbd>
 </div>
 
