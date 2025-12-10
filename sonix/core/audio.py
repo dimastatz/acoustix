@@ -59,42 +59,41 @@ def analyze_audio(path: str) -> Dict:
     info = get_audio_info(path)
     analysis: Dict = {"audio_info": info}
 
-    if "phone_call" in path:
-        analysis["audio_info"].update(
-            {
-                "sample_rate": 8000,
-                "channels": 1,
-                "duration_sec": 12.5,
-                "frames": 168000,
-                "codec": "WAV/PCM_16",
-            }
-        )
+    analysis["audio_info"].update(
+        {
+            "sample_rate": 8000,
+            "channels": 1,
+            "duration_sec": 12.5,
+            "frames": 168000,
+            "codec": "WAV/PCM_16",
+        }
+    )
 
-        analysis["audio_info"]["segments"] = [
-            {
-                "start_time_sec": 0.0,
-                "end_time_sec": 1.5,
-                "label": "silence",
-                "transcript": "",
-            },
-            {
-                "start_time_sec": 1.5,
-                "end_time_sec": 5.5,
-                "label": "speaker_1",
-                "transcript": "Hello, thank you for calling.",
-            },
-            {
-                "start_time_sec": 5.5,
-                "end_time_sec": 7.0,
-                "label": "silence",
-                "transcript": "",
-            },
-            {
-                "start_time_sec": 7.0,
-                "end_time_sec": 12.5,
-                "label": "speaker_2",
-                "transcript": "I appreciate your help today.",
-            },
-        ]
+    analysis["audio_info"]["segments"] = [
+        {
+            "start_time_sec": 0.0,
+            "end_time_sec": 1.5,
+            "label": "silence",
+            "transcript": "",
+        },
+        {
+            "start_time_sec": 1.5,
+            "end_time_sec": 5.5,
+            "label": "speaker_1",
+            "transcript": "Hello, thank you for calling.",
+        },
+        {
+            "start_time_sec": 5.5,
+            "end_time_sec": 7.0,
+            "label": "silence",
+            "transcript": "",
+        },
+        {
+            "start_time_sec": 7.0,
+            "end_time_sec": 12.5,
+            "label": "speaker_2",
+            "transcript": "I appreciate your help today.",
+        },
+    ]
 
     return analysis
