@@ -33,11 +33,11 @@ def test_analyze_audio():
 
     test_file = get_resource_path("phone_call", "mp3")
     analysis = analyze_audio(test_file)
-    assert analysis["audio_info"]["sample_rate"] == 8000
+    assert analysis["audio_info"]["sample_rate"] == 44100
     assert analysis["audio_info"]["channels"] == 1
-    assert analysis["audio_info"]["duration_sec"] == 12.5
-    assert analysis["audio_info"]["frames"] == 168000
-    assert analysis["audio_info"]["codec"] == "WAV/PCM_16"
+    assert analysis["audio_info"]["duration_sec"] == 15.801179138321995
+    assert analysis["audio_info"]["frames"] == 696832
+    assert analysis["audio_info"]["codec"] == "MP3/MPEG_LAYER_III"
 
     segments = analysis["audio_info"]["segments"]
     assert len(segments) == 4

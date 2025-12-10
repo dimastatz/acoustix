@@ -59,16 +59,6 @@ def analyze_audio(path: str) -> Dict:
     info = get_audio_info(path)
     analysis: Dict = {"audio_info": info}
 
-    analysis["audio_info"].update(
-        {
-            "sample_rate": 8000,
-            "channels": 1,
-            "duration_sec": 12.5,
-            "frames": 168000,
-            "codec": "WAV/PCM_16",
-        }
-    )
-
     analysis["audio_info"]["segments"] = [
         {
             "start_time_sec": 0.0,
