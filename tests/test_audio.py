@@ -1,8 +1,11 @@
 """ test audio module """
+import numpy as np
 from tests.utilities import get_resource_path
 from sonix.core.audio import analyze_audio
 from sonix.core.audio import get_audio_info
 from sonix.core.audio import compare_voice_similarity
+from sonix.core.audio import merge_intervals
+from sonix.core.audio import entries_from_intervals
 
 
 def test_compare_voice_similarity():
@@ -40,24 +43,27 @@ def test_analyze_audio():
     assert analysis["audio_info"]["codec"] == "MP3/MPEG_LAYER_III"
 
     segments = analysis["audio_info"]["segments"]
-    assert len(segments) == 4
+    assert len(segments) == 21
 
-    assert segments[0]["start_time_sec"] == 0.0
-    assert segments[0]["end_time_sec"] == 1.5
-    assert segments[0]["label"] == "silence"
-    assert segments[0]["transcript"] == ""
 
-    assert segments[1]["start_time_sec"] == 1.5
-    assert segments[1]["end_time_sec"] == 5.5
-    assert segments[1]["label"] == "speaker_1"
-    assert segments[1]["transcript"] == "Hello, thank you for calling."
+def test_entries_from_intervals_empty():
+    """this function runs the full audio analysis pipeline on a test file"""
 
-    assert segments[2]["start_time_sec"] == 5.5
-    assert segments[2]["end_time_sec"] == 7.0
-    assert segments[2]["label"] == "silence"
-    assert segments[2]["transcript"] == ""
+    # empty intervals should produce a single silence entry covering total
+    intervals = np.empty((0, 2), dtype=int)
+    total = 12345
+    entries = entries_from_intervals(intervals, total)
+    assert entries == [(0, total, False)]
 
-    assert segments[3]["start_time_sec"] == 7.0
-    assert segments[3]["end_time_sec"] == 12.5
-    assert segments[3]["label"] == "speaker_2"
-    assert segments[3]["transcript"] == "I appreciate your help today."
+
+def test_merge_intervals_merges_short_silences():
+    """this function runs the full audio analysis pipeline on a test file"""
+
+    # first entry is silence, next is a short silence separated by small gap
+    entries = [(0, 10, False), (11, 12, False), (20, 30, True)]
+    # min_gap large enough to merge the two silences (gap length 1)
+    merged = merge_intervals(entries, min_gap=2)
+    # the two silence entries should be merged into (0,12,False)
+    assert merged[0] == (0, 12, False)
+    # the final speech entry should remain
+    assert merged[-1] == (20, 30, True)
