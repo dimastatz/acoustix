@@ -1,4 +1,5 @@
 """ test audio module """
+import pytest
 import numpy as np
 from tests.utilities import get_resource_path
 from sonix.core.audio import analyze_audio
@@ -6,6 +7,7 @@ from sonix.core.audio import get_audio_info
 from sonix.core.audio import compare_voice_similarity
 from sonix.core.audio import merge_intervals
 from sonix.core.audio import entries_from_intervals
+from sonix.core.audio import diarize_with_silence
 
 
 def test_compare_voice_similarity():
@@ -44,6 +46,9 @@ def test_analyze_audio():
 
     segments = analysis["audio_info"]["segments"]
     assert len(segments) == 21
+
+    with pytest.raises(Exception):
+        diarize_with_silence(test_file)
 
 
 def test_entries_from_intervals_empty():

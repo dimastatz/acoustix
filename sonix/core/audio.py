@@ -2,6 +2,7 @@
 from functools import reduce
 from itertools import zip_longest
 from typing import Dict, List, Tuple
+from pyannote.audio import Pipeline
 
 import numpy as np
 import librosa
@@ -83,8 +84,8 @@ def split_audio_into_segments(
     data: np.ndarray,
     sr: int,
     top_db: int = 30,
-    min_silence_len_sec: float = 0.5,
-    pad_sec: float = 0.05,
+    min_silence_len_sec: float = 1.0,
+    pad_sec: float = 0.00,
 ) -> List[Dict]:
     """Split waveform into silence/speech segments.
 
@@ -168,3 +169,12 @@ def analyze_audio(path: str) -> Dict:
     analysis["audio_info"]["segments"] = split_audio_into_segments(data, sr)
 
     return analysis
+
+
+def diarize_with_silence(audio_file, silence_threshold=0.3):
+    """Return timeline with: silence, Speaker1, Speaker2, silence, ..."""
+
+    pipeline = Pipeline.from_pretrained(
+        "pyannote/speaker-diarization",
+    )
+    return pipeline(audio_file), silence_threshold
