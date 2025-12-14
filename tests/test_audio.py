@@ -1,4 +1,5 @@
 """ test audio module """
+import os
 import pytest
 import numpy as np
 from tests.utilities import get_resource_path
@@ -46,6 +47,9 @@ def test_analyze_audio():
 
     segments = analysis["audio_info"]["segments"]
     assert len(segments) == 21
+
+    token = os.environ["HF_TOKEN"]
+    assert token is not None, "HF_TOKEN environment variable must be set"
 
     with pytest.raises(Exception):
         diarize_with_silence(test_file)
