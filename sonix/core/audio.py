@@ -171,10 +171,10 @@ def analyze_audio(path: str) -> Dict:
     return analysis
 
 
-def diarize_with_silence(audio_file, silence_threshold=0.3):
+def diarize_with_silence(audio_file, hf_token, silence_threshold=0.3):
     """Return timeline with: silence, Speaker1, Speaker2, silence, ..."""
 
     pipeline = Pipeline.from_pretrained(
-        "pyannote/speaker-diarization",
+        "pyannote/speaker-diarization", use_auth_token=hf_token
     )
     return pipeline(audio_file), silence_threshold

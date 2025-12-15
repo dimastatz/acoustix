@@ -1,6 +1,5 @@
 """ test audio module """
 import os
-import pytest
 import numpy as np
 from tests.utilities import get_resource_path
 from sonix.core.audio import analyze_audio
@@ -51,8 +50,8 @@ def test_analyze_audio():
     token = os.environ["HF_TOKEN"]
     assert token is not None, "HF_TOKEN environment variable must be set"
 
-    with pytest.raises(Exception):
-        diarize_with_silence(test_file)
+    result = diarize_with_silence(test_file, hf_token=token)
+    assert "segments" in result
 
 
 def test_entries_from_intervals_empty():
