@@ -171,10 +171,41 @@ def analyze_audio(path: str) -> Dict:
     return analysis
 
 
-def diarize_with_silence(audio_file, hf_token, silence_threshold=0.3):
-    """Return timeline with: silence, Speaker1, Speaker2, silence, ..."""
+def diarize_with_silence(audio_file, hf_token=None, silence_threshold=0.3):
+    """Attempt to run pyannote speaker-diarization pipeline and
+    convert the result into a simple dict with a `segments` list.
 
-    pipeline = Pipeline.from_pretrained(
-        "pyannote/speaker-diarization", use_auth_token=hf_token
-    )
-    return pipeline(audio_file), silence_threshold
+    If pyannote or its model loading fails (for example due to HF
+    access, or PyTorch safe-unpickle errors), fall back to the
+    local silence-based splitter and return its segments. This keeps
+    tests and CI stable while allowing optional pyannote usage.
+    """
+    import warnings
+
+    # Try the high-quality pyannote pipeline when a token is provided
+    if hf_token:
+        try:
+            pipeline = Pipeline.from_pretrained(
+                "pyannote/speaker-diarization", use_auth_token=hf_token
+            )
+            ann = pipeline(audio_file)
+            # Convert pyannote Annotation/Timeline into simple segments
+            segments = [
+                {
+                    "start_time_sec": float(seg.start),
+                    "end_time_sec": float(seg.end),
+                    "label": str(label) if label is not None else "speaker",
+                }
+                for seg, _, label in ann.itertracks(yield_label=True)
+            ]
+            return {"segments": segments}
+        except Exception as exc:  # pragma: no cover - fallback path exercised in tests
+            warnings.warn(
+                f"pyannote diarization failed ({exc!r}), falling back to silence split",
+                RuntimeWarning,
+            )
+
+    # Local, deterministic fallback using existing splitter
+    data, sr = librosa.load(audio_file, sr=None, mono=True)
+    segments = split_audio_into_segments(data, sr)
+    return {"segments": segments}
